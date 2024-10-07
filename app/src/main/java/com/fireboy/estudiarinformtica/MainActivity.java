@@ -1,6 +1,5 @@
 package com.fireboy.estudiarinformtica;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,17 +38,52 @@ public class MainActivity extends AppCompatActivity {
         adapterTipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTipo.setAdapter(adapterTipo);
 
-        spCiclo.setOnItemClickListener((adapterView, view, i, l) -> actualizarInfo());
-        spPoblacion.setOnItemClickListener((adapterView, view, i, l) -> actualizarInfo());
-        spTipo.setOnItemClickListener((adapterView, view, i, l) -> actualizarInfo());
+        itemSelectedListener();
+
+        btnBorrar.setOnClickListener(v -> borrar());
     }
 
-    @SuppressLint("SetTextI18n")
     private void actualizarInfo() {
         String ciclo = spCiclo.getSelectedItem().toString();
         String poblacion = spPoblacion.getSelectedItem().toString();
         String tipo = spTipo.getSelectedItem().toString();
 
-        lblInfo.setText(ciclo + " en " + poblacion + " de forma " + tipo);
+        lblInfo.setText(String.format("%s en %s de forma %s", ciclo, poblacion, tipo));
+    }
+
+    private void borrar() {
+        lblInfo.setText("");
+    }
+
+    private void itemSelectedListener() {
+        spCiclo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                actualizarInfo();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        spPoblacion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                actualizarInfo();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        spTipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                actualizarInfo();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
     }
 }
